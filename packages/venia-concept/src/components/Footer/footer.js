@@ -7,7 +7,7 @@ import { shape, string } from 'prop-types';
 import { useFooter } from '@magento/peregrine/lib/talons/Footer/useFooter';
 
 import Logo from '@magento/venia-ui/lib/components/Logo';
-import Newsletter from '@magento/venia-ui/lib/components/Newsletter/Newsletter';
+import Newsletter from '@magento/venia-ui/lib/components/Newsletter';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
@@ -16,6 +16,8 @@ import {
     DEFAULT_LINKS,
     LOREM_IPSUM
 } from '@magento/venia-ui/lib/components/Footer/sampleData';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBehance, faGoogle, faTwitter, faFacebook, faSkype } from '@fortawesome/free-brands-svg-icons';
 
 const Footer = props => {
     const { links } = props;
@@ -88,15 +90,21 @@ const Footer = props => {
                             defaultMessage={LOREM_IPSUM}
                         />
                     </p>
-                    <ul className={classes.socialLinks}>
+                    <ul className='footer-socialLinks'>
                         <li>
-                            <Instagram size={20} />
+                            <FontAwesomeIcon icon={faBehance} class='footer-socialIcon'/>
                         </li>
                         <li>
-                            <Facebook size={20} />
+                            <FontAwesomeIcon icon={faFacebook} class='footer-socialIcon'/>
                         </li>
                         <li>
-                            <Twitter size={20} />
+                            <FontAwesomeIcon icon={faGoogle} class='footer-socialIcon'/>
+                        </li>
+                        <li>
+                            <FontAwesomeIcon icon={faSkype} class='footer-socialIcon'/>
+                        </li>
+                        <li>
+                            <FontAwesomeIcon icon={faTwitter} class='footer-socialIcon'/>
                         </li>
                     </ul>
                 </div>
