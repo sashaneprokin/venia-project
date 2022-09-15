@@ -92,19 +92,19 @@ const Footer = props => {
                     </p>
                     <ul className='footer-socialLinks'>
                         <li>
-                            <FontAwesomeIcon icon={faBehance} class='footer-socialIcon'/>
+                            <FontAwesomeIcon icon={faBehance} className='footer-socialIcon'/>
                         </li>
                         <li>
-                            <FontAwesomeIcon icon={faFacebook} class='footer-socialIcon'/>
+                            <FontAwesomeIcon icon={faFacebook} className='footer-socialIcon'/>
                         </li>
                         <li>
-                            <FontAwesomeIcon icon={faGoogle} class='footer-socialIcon'/>
+                            <FontAwesomeIcon icon={faGoogle} className='footer-socialIcon'/>
                         </li>
                         <li>
-                            <FontAwesomeIcon icon={faSkype} class='footer-socialIcon'/>
+                            <FontAwesomeIcon icon={faSkype} className='footer-socialIcon'/>
                         </li>
                         <li>
-                            <FontAwesomeIcon icon={faTwitter} class='footer-socialIcon'/>
+                            <FontAwesomeIcon icon={faTwitter} className='footer-socialIcon'/>
                         </li>
                     </ul>
                 </div>
