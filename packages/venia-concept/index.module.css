@@ -6,26 +6,6 @@
     font-family: var(--drexel-global-fontFamily-serif);
 }
 
-:global(.footer-socialLinks) {
-    display: flex;
-    flex: 1;
-}
-
-:global(.footer-socialLinks li) {
-    margin-right: 10px;
-}
-
-:global(.footer-socialLinks .footer-socialIcon){
-    height: 12px;
-    width: 15px;
-}
-
-:global(.footer-socialLinks .footer-socialIcon:hover){
-    color: rgb(var(--venia-global-color-ligthsteelblue));
-    font-size: 2em;
-    transition: all 0.2s ease-in-out;
-}
-
 
 /* Footer change color for .footer_link */
 :global(.footer_link) {
