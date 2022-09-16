@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-no-literals */
 import React, { Fragment } from 'react';
-import { Facebook, Instagram, Twitter } from 'react-feather';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { shape, string } from 'prop-types';
