@@ -1,21 +1,21 @@
-/* eslint-disable react/jsx-no-literals */
 import React, { Fragment } from 'react';
-import { Facebook, Instagram, Twitter } from 'react-feather';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { shape, string } from 'prop-types';
 import { useFooter } from '@magento/peregrine/lib/talons/Footer/useFooter';
 
 import Logo from '@magento/venia-ui/lib/components/Logo';
-import Newsletter from '@magento/venia-ui/lib/components/Newsletter/Newsletter';
+import Newsletter from '@magento/venia-ui/lib/components/Newsletter';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
-import defaultClasses from '@magento/venia-ui/lib/components/Footer/footer.module.css';
+import defaultClasses from './footer.module.css';
 import {
     DEFAULT_LINKS,
     LOREM_IPSUM
 } from '@magento/venia-ui/lib/components/Footer/sampleData';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBehance, faGoogle, faTwitter, faFacebook, faSkype } from '@fortawesome/free-brands-svg-icons';
 
 const Footer = props => {
     const { links } = props;
@@ -25,6 +25,7 @@ const Footer = props => {
     const { copyrightText } = talonProps;
     const { formatMessage } = useIntl();
     const title = formatMessage({ id: 'logo.title', defaultMessage: 'Venia' });
+
 
     const linkGroups = Array.from(links, ([groupKey, linkProps]) => {
         const linkElements = Array.from(linkProps, ([text, pathInfo]) => {
@@ -65,7 +66,10 @@ const Footer = props => {
             <div className={classes.links}>
                 <div className={classes.link}>
                     <Link to="/foo">
-                        <span className="footer_link">Foo Demo Page</span>
+                        <span className={classes.footer_link}>
+                         <FormattedMessage defaultMessage={`Foo Demo Page`} id={`footer.customLink`}/>
+                        </span>
+
                     </Link>
                 </div>
                 {linkGroups}
@@ -88,15 +92,21 @@ const Footer = props => {
                             defaultMessage={LOREM_IPSUM}
                         />
                     </p>
-                    <ul className={classes.socialLinks}>
+                    <ul className={classes.footerSocialLinks}>
                         <li>
-                            <Instagram size={20} />
+                            <FontAwesomeIcon icon={faBehance} className={classes.footerSocialIcon}/>
                         </li>
                         <li>
-                            <Facebook size={20} />
+                            <FontAwesomeIcon icon={faFacebook} className={classes.footerSocialIcon}/>
                         </li>
                         <li>
-                            <Twitter size={20} />
+                            <FontAwesomeIcon icon={faGoogle} className={classes.footerSocialIcon}/>
+                        </li>
+                        <li>
+                            <FontAwesomeIcon icon={faSkype} className={classes.footerSocialIcon}/>
+                        </li>
+                        <li>
+                            <FontAwesomeIcon icon={faTwitter} className={classes.footerSocialIcon}/>
                         </li>
                     </ul>
                 </div>
@@ -138,6 +148,8 @@ Footer.defaultProps = {
 
 Footer.propTypes = {
     classes: shape({
-        root: string
+        root: string,
+        logoContainer: string,
+
     })
 };

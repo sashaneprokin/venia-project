@@ -6,6 +6,7 @@
     font-family: var(--drexel-global-fontFamily-serif);
 }
 
+
 /* Footer change color for .footer_link */
 :global(.footer_link) {
     color: rgb(var(--venia-global-color-test-blue));

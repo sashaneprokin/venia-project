@@ -47,6 +47,8 @@
     --venia-global-color-teal: var(--venia-global-color-blue-400);
     /* --venia-global-color-teal-dark: var(--venia-global-color-blue-600); */
     --venia-global-color-teal-light: var(--venia-global-color-gray-100);
+    /* Task4: color for a link */
+    --venia-global-color-ligthsteelblue: 176 196 222;
 
     /* color by semantics */
     /* --venia-global-color-background: var(--venia-global-color-gray-50); */
