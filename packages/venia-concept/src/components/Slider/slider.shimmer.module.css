@@ -1,0 +1,3 @@
+.shimmerRoot {
+    composes: root_rectangle from '~@magento/venia-ui/lib/components/Shimmer/shimmer.module.css';
+}
