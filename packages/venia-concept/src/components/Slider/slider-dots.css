@@ -1,0 +1,19 @@
+.swiper-pagination-bullet {
+    background: rgb(var(--venia-global-color-white));
+    border: 1px solid rgb(var(--venia-global-color-dark));
+    border-radius: 1px;
+    height: 13px;
+    opacity: 1;
+    transition: all 0.2s ease-out;
+    width: 13px;
+}
+
+.swiper-pagination-bullet-active {
+    background: rgb(var(--venia-global-color-dark));
+}
+
+.swiper-pagination-bullet:hover {
+    background: rgb(var(--venia-global-color-dark));
+}
+
+

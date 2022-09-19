@@ -29,7 +29,6 @@ import sliderConfigAggregator from './ContentTypes/Slider/configAggregator';
 import { SliderShimmer } from './ContentTypes/Slider';
 import { DynamicBlockShimmer } from './ContentTypes/DynamicBlock';
 
-/* istanbul ignore next */
 const contentTypesConfig = {
     row: {
         configAggregator: rowConfigAggregator,
@@ -108,10 +107,9 @@ const contentTypesConfig = {
     },
     slider: {
         configAggregator: sliderConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/Slider')),
+        component: React.lazy(() => import('../../venia-concept/src/components/Slider')),
         componentShimmer: SliderShimmer
     },
-    // Slide is just a banner wrapped inside a slider
     slide: {
         configAggregator: bannerConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/Banner')),
@@ -119,25 +117,12 @@ const contentTypesConfig = {
     }
 };
 
-/**
- * Retrieve a content types configuration
- *
- * @param {string} contentType
- * @returns {*}
- */
 export function getContentTypeConfig(contentType) {
     if (contentTypesConfig[contentType]) {
         return contentTypesConfig[contentType];
     }
 }
 
-/**
- * Set content types configuration with new one
- *
- * @param {string} contentType
- * @param {*} config
- * @returns {*}
- */
 export function setContentTypeConfig(contentType, config) {
     return (contentTypesConfig[contentType] = config);
 }
