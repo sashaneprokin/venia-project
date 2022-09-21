@@ -2,6 +2,7 @@
 
 :global(:root) {
     --drexel-global-fontFamily-serif: 'Poppins', sans-serif;
+    --drexel-theme-menu-color: rgba(255, 255, 255, .90);
 }
 
 /* global tokens */
@@ -63,6 +64,9 @@
     /* dimensions */
     --venia-global-maxWidth: 1440px;
     --venia-global-header-minHeight: 5rem;
+
+    /* submenu */
+    --venia-global-submenu: rgba(255,255,255,.95);
 }
 
 @media (max-width: 959px) {

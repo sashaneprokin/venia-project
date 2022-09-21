@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense } from 'react';
+import React, { Fragment, Suspense, useEffect, useRef } from 'react';
 import { shape, string } from 'prop-types';
 import { Link, Route } from 'react-router-dom';
 
@@ -12,12 +12,14 @@ import { useHeader } from '@magento/peregrine/lib/talons/Header/useHeader';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
-import defaultClasses from '@magento/venia-ui/lib/components/Header/header.module.css';
 import StoreSwitcher from '@magento/venia-ui/lib/components/Header/storeSwitcher';
 import CurrencySwitcher from '@magento/venia-ui/lib/components/Header/currencySwitcher';
-import MegaMenu from '@magento/venia-ui/lib/components/MegaMenu';
+import MegaMenu from '../MegaMenu';
 import PageLoadingIndicator from '@magento/venia-ui/lib/components/PageLoadingIndicator';
 import { useIntl } from 'react-intl';
+import FetchedLogo from '../Logo';
+import defaultClasses from './header.module.css';
+import './header.css';
 
 const SearchBar = React.lazy(() => import('@magento/venia-ui/lib/components/SearchBar'));
 
@@ -28,11 +30,16 @@ const Header = props => {
         isOnline,
         isSearchOpen,
         searchRef,
-        searchTriggerRef
+        searchTriggerRef,
+        logoConfig,
+        error,
+        loading
     } = useHeader();
 
+    const headerRef = useRef(null);
     const classes = useStyle(defaultClasses, props.classes);
     const rootClass = isSearchOpen ? classes.open : classes.closed;
+
 
     const searchBarFallback = (
         <div className={classes.searchFallback} ref={searchRef}>
@@ -53,7 +60,27 @@ const Header = props => {
     ) : null;
 
     const { formatMessage } = useIntl();
-    const title = formatMessage({ id: 'logo.title', defaultMessage: 'Venia' });
+    const title = formatMessage({ id: 'logo.title', defaultMessage: 'Drexel' });
+
+    //The Intersection Observe of a header
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if(headerRef.current && !entry.isIntersecting) {
+                        headerRef.current.classList.add('header-animation', 'top-0', 'sticky');
+                    }
+                });
+            },
+            {
+                threshold: 1,
+            }
+        );
+
+        if(headerRef) {
+            observer.observe(headerRef.current);
+        }
+    }, [headerRef]);
 
     return (
         <Fragment>
@@ -63,7 +90,7 @@ const Header = props => {
                     <CurrencySwitcher />
                 </div>
             </div>
-            <header className={rootClass} data-cy="Header-root">
+            <header ref={headerRef} className={rootClass} data-cy="Header-root">
                 <div className={classes.toolbar}>
                     <div className={classes.primaryActions}>
                         <NavTrigger />
@@ -78,7 +105,10 @@ const Header = props => {
                         className={classes.logoContainer}
                         data-cy="Header-logoContainer"
                     >
-                        <Logo classes={{ logo: classes.logo }} />
+                        {(!error && !loading && logoConfig.header_logo_src)
+                            ? <FetchedLogo { ...logoConfig } classes={{ logo: classes.logo }} />
+                            : <Logo classes={{ logo: classes.logo }} />
+                        }
                     </Link>
                     <MegaMenu />
                     <div className={classes.secondaryActions}>
@@ -111,4 +141,3 @@ Header.propTypes = {
 };
 
 export default Header;
-
