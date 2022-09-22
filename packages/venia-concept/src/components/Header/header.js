@@ -65,9 +65,6 @@ const Header = props => {
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
-                console.log(classes.sticky)
-                console.log(classes)
-                console.log(entries)
                 if (entries[0].intersectionRatio < 1) {
                     headerRef.current.classList.add(classes.sticky)
                 } else {
