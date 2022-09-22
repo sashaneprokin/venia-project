@@ -169,3 +169,32 @@
         box-shadow: 0 var(--dot-size) 0 0;
     }
 }
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sticky {
+    top: -1px;
+    position: sticky;
+}
+
+
+.header-animation {
+    background: var(--venia-global-submenu);
+    animation-name: fadeInDown;
+    animation-direction: normal;
+    animation-play-state: running;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-duration: .7s;
+    animation-delay: 0s;
+    animation-timing-function: ease-out;
+}

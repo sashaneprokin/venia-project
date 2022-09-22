@@ -19,7 +19,6 @@ import PageLoadingIndicator from '@magento/venia-ui/lib/components/PageLoadingIn
 import { useIntl } from 'react-intl';
 import FetchedLogo from '../Logo';
 import defaultClasses from './header.module.css';
-import './header.css';
 
 const SearchBar = React.lazy(() => import('@magento/venia-ui/lib/components/SearchBar'));
 
@@ -66,11 +65,14 @@ const Header = props => {
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
-                entries.forEach((entry) => {
-                    if(headerRef.current && !entry.isIntersecting) {
-                        headerRef.current.classList.add('header-animation', 'top-0', 'sticky');
-                    }
-                });
+                console.log(classes.sticky)
+                console.log(classes)
+                console.log(entries)
+                if (entries[0].intersectionRatio < 1) {
+                    headerRef.current.classList.add(classes.sticky)
+                } else {
+                    headerRef.current.classList.remove(classes.sticky)
+                }
             },
             {
                 threshold: 1,
