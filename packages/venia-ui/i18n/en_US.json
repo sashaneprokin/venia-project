@@ -337,6 +337,7 @@
     "priceSummary.estimatedTotal": "Estimated Total",
     "priceSummary.lineItemLabel": "Subtotal",
     "priceSummary.total": "Total",
+    "product.brandLabel": "Brand: {value}",
     "product.editItem": "Edit item",
     "product.outOfStock": "Out-of-stock",
     "product.outOfStockTryAgain": "This Product is currently out of stock. Please try again later.",
