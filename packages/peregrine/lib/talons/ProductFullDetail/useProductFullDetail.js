@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl';
 import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+import {useToasts} from "@magento/peregrine";
 
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
 import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
@@ -13,6 +14,7 @@ import mergeOperations from '../../util/shallowMerge';
 import defaultOperations from './productFullDetail.gql';
 import { useEventingContext } from '../../context/eventing';
 import { getOutOfStockVariants } from '@magento/peregrine/lib/util/getOutOfStockVariants';
+
 
 const INITIAL_OPTION_CODES = new Map();
 const INITIAL_OPTION_SELECTIONS = new Map();
@@ -246,6 +248,8 @@ export const useProductFullDetail = props => {
     } = props;
 
     const [, { dispatch }] = useEventingContext();
+    const [, {addToast}] = useToasts();
+
 
     const hasDeprecatedOperationProp = !!(
         addConfigurableProductToCartMutation || addSimpleProductToCartMutation
@@ -443,6 +447,12 @@ export const useProductFullDetail = props => {
                             await addSimpleProductToCart({
                                 variables
                             });
+                            addToast({
+                                message: formatMessage({ defaultMessage: 'You added product to your shopping cart', id: 'productFullDetail.success'}, { name: product.name }),
+                                onDismiss: remove => remove(),
+                                timeout: 5000,
+                                type: 'success'
+                            });
                         } catch {
                             return;
                         }
@@ -450,6 +460,12 @@ export const useProductFullDetail = props => {
                         try {
                             await addConfigurableProductToCart({
                                 variables
+                            });
+                            addToast({
+                                message: formatMessage({ defaultMessage: 'You added product to your shopping cart', id: 'productFullDetail.success'}, { name: product.name }),
+                                onDismiss: remove => remove(),
+                                timeout: 5000,
+                                type: 'success'
                             });
                         } catch {
                             return;
@@ -481,6 +497,12 @@ export const useProductFullDetail = props => {
 
                 try {
                     await addProductToCart({ variables });
+                    addToast({
+                        message: formatMessage({ defaultMessage: 'You added product to your shopping cart', id: 'productFullDetail.success'}, { name: product.name }),
+                        onDismiss: remove => remove(),
+                        timeout: 5000,
+                        type: 'success'
+                    });
 
                     const selectedOptionsLabels =
                         selectedOptionsArray?.map((uid, i) => ({

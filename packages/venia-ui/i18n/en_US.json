@@ -361,6 +361,7 @@
     "productFullDetail.errorUnknown": "Could not add item to cart. Please check required options and try again.",
     "productFullDetail.productDescription": "Product Description",
     "productFullDetail.details": "Details",
+    "productFullDetail.success": "You added {name} to your shopping cart",
     "productFullDetail.unavailableProduct": "This product is currently unavailable for purchase.",
     "productFullDetail.outOfStockProduct": "This item is currently out of stock",
     "productImageCarousel.previousButtonAriaLabel": "Previous Image",
