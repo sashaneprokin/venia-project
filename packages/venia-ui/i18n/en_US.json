@@ -8,6 +8,8 @@
     "accountInformationPage.titleAccount": "Account Information",
     "accountMenu.accountInfoLink": "Account Information",
     "accountMenu.addressBookLink": "Address Book",
+    "accountMenu.commentsPageLink": "Comments page",
+    "accountMenu.commentsPageText": "Hi there",
     "accountMenu.communicationsLink": "Communications",
     "accountMenu.favoritesListsLink": "Favorites Lists",
     "accountMenu.orderHistoryLink": "Order History",

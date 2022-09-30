@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Info } from 'react-feather';
 import { string, number, shape } from 'prop-types';
@@ -10,14 +10,14 @@ import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Image from '@magento/venia-ui/lib/components/Image';
-import GalleryItemShimmer from './item.shimmer';
-import defaultClasses from './item.module.css';
-import WishlistGalleryButton from '@magento/venia-ui/lib/components/Wishlist/AddToListButton';
+import GalleryItemShimmer from '@magento/venia-ui/lib/components/Gallery/item.shimmer';
+import defaultClasses from '@magento/venia-ui/lib/components/Gallery/item.module.css';
+import customStyles from './custom-gallery.module.css';
+import WishlistGalleryButton from '@magento/venia-ui/lib/components/Wishlist/AddToListButton'
 
 import AddToCartButton from '@magento/venia-ui/lib/components/Gallery/addToCartButton';
-import QuickViewButton from "./quickViewButton";
-import QuickViewModal  from "../QuickViewModal";
-import {useScrollLock} from "@magento/peregrine";
+import { AiOutlineEye } from 'react-icons/ai';
+import QuickView from '../QuickView'
 
 // The placeholder image is 4:5, so we should make sure to size our product
 // images appropriately.
@@ -42,19 +42,16 @@ const GalleryItem = props => {
 
     const productUrlSuffix = storeConfig && storeConfig.product_url_suffix;
 
-    const classes = useStyle(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes, customStyles);
 
-    const [displayQuickViewButton, setDisplayQuickViewButton] = useState(false);
-    const [isQuickViewModalOpened, setIsQuickViewModalOpened] = useState(false);
-
-    useScrollLock(isQuickViewModalOpened);
+    const [isQuickModal, setIsQuickModal] = useState(false);
 
     if (!item) {
         return <GalleryItemShimmer classes={classes} />;
     }
 
     // eslint-disable-next-line no-unused-vars
-    const { name, price_range, small_image, url_key, rating_summary, product_brand } = item;
+    const { name, price_range, small_image, url_key } = item;
 
     const { url: smallImageURL } = small_image;
     const productLink = resourceUrl(`/${url_key}${productUrlSuffix || ''}`);
@@ -82,11 +79,10 @@ const GalleryItem = props => {
         price_range.maximum_price.final_price ||
         price_range.maximum_price.regular_price;
 
-    // Hide the Rating component until it is updated with the new look and feel (PWA-2512).
-    const ratingAverage = null;
-    // const ratingAverage = rating_summary ? (
-    //     <Rating rating={rating_summary} />
-    // ) : null;
+    useEffect(() => {
+        if (isQuickModal) document.body.style.overflow = 'hidden';
+        else document.body.style.overflow = 'visible';
+    }, [isQuickModal]);
 
     return (
         <div
@@ -94,10 +90,14 @@ const GalleryItem = props => {
             className={classes.root}
             aria-live="polite"
             aria-busy="false"
-            onMouseEnter={() => setDisplayQuickViewButton(true)}
-            onMouseLeave={() => setDisplayQuickViewButton(false)}
             ref={itemRef}
         >
+            { isQuickModal ? <QuickView setIsOpen={setIsQuickModal} product={item}/> : ""}
+
+            <div className={classes.quickViewItem}>
+                <AiOutlineEye size={40} onClick={() => setIsQuickModal(current => !current)}/>
+            </div>
+
             <Link
                 onClick={handleLinkClick}
                 to={productLink}
@@ -115,8 +115,10 @@ const GalleryItem = props => {
                     resource={smallImageURL}
                     widths={IMAGE_WIDTHS}
                 />
-                {ratingAverage}
             </Link>
+            <div className={classes.galleryBranding}>
+                {item.product_brand}
+            </div>
             <Link
                 onClick={handleLinkClick}
                 to={productLink}
@@ -125,15 +127,6 @@ const GalleryItem = props => {
             >
                 <span>{name}</span>
             </Link>
-
-            <div>
-                {product_brand &&  <FormattedMessage
-                    id="product.brandLabel"
-                    defaultMessage="Brand: "
-                    values={{ value: product_brand }}
-                /> }
-            </div>
-
             <div data-cy="GalleryItem-price" className={classes.price}>
                 <Price
                     value={priceSource.value}
@@ -145,16 +138,6 @@ const GalleryItem = props => {
                 {addButton}
                 {wishlistButton}
             </div>
-
-            {displayQuickViewButton && <QuickViewButton
-                    handleQuickView={()=> setIsQuickViewModalOpened(true)}
-                />
-            }
-            {isQuickViewModalOpened && <QuickViewModal
-                    product={item}
-                    closeHandle={()=> setIsQuickViewModalOpened(false)}
-                />
-            }
         </div>
     );
 };
@@ -174,7 +157,6 @@ GalleryItem.propTypes = {
         id: number.isRequired,
         uid: string.isRequired,
         name: string.isRequired,
-        product_brand: string,
         small_image: shape({
             url: string.isRequired
         }),

@@ -1,0 +1,30 @@
+.galleryBranding {
+    height: 20px;
+}
+
+div[data-cy='GalleryItem-root'] {
+    position: relative;
+}
+
+.quickViewItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    top: 10px;
+    left: 10px;
+    opacity: 0;
+    transition: 0.5s;
+    z-index: 1;
+}
+
+.quickViewItem:hover {
+    cursor: pointer;
+}
+
+div[data-cy='GalleryItem-root']:hover .quickViewItem{
+    opacity: 1;
+    transition: 0.5s;
+}
