@@ -1,0 +1,51 @@
+.container {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
+    z-index: 70;
+}
+
+.box {
+    background: white;
+    position: relative;
+    height: 700px;
+    width: 80%;
+    color: black;
+    padding: 20px;
+    z-index: 71;
+}
+
+.main {
+    width: 100%;
+}
+
+.top {
+    display: flex;
+    height: 650px;
+}
+
+.top > * {
+    margin: 0;
+    width: 50%;
+}
+
+.closeButton {
+    position: absolute;
+    top: -13px;
+    right: -13px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #c00060;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
