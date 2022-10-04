@@ -11,7 +11,7 @@ import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Image from '@magento/venia-ui/lib/components/Image';
 import GalleryItemShimmer from '@magento/venia-ui/lib/components/Gallery/item.shimmer';
-import defaultClasses from '@magento/venia-ui/lib/components/Gallery/item.module.css';
+import defaultClasses from './item.module.css';
 import customStyles from './custom-gallery.module.css';
 import WishlistGalleryButton from '@magento/venia-ui/lib/components/Wishlist/AddToListButton'
 
@@ -87,7 +87,7 @@ const GalleryItem = props => {
     return (
         <div
             data-cy="GalleryItem-root"
-            className={classes.root}
+            className={classes.galleryItem}
             aria-live="polite"
             aria-busy="false"
             ref={itemRef}
